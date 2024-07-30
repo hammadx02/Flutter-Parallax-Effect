@@ -36,42 +36,47 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
         itemBuilder: (context, index) {
           // double offset = pageOffset - index;
 
-          return Container(
-            clipBehavior: Clip.none,
-            margin: const EdgeInsets.only(left: 8, right: 8, bottom: 24),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(32),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  offset: const Offset(8, 20),
-                  blurRadius: 24,
+          return AnimatedBuilder(
+            animation: pageController,
+            builder: (context, child) {
+              return Container(
+                clipBehavior: Clip.none,
+                margin: const EdgeInsets.only(left: 8, right: 8, bottom: 24),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(32),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      offset: const Offset(8, 20),
+                      blurRadius: 24,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: Column(
-              children: <Widget>[
-                // Image
-                ClipRRect(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(32)),
-                  child: Image.asset(
-                    'assets/${demoCardData[index].image}',
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    fit: BoxFit.none,
-                  ),
+                child: Column(
+                  children: <Widget>[
+                    // Image
+                    ClipRRect(
+                      borderRadius:
+                          const BorderRadius.vertical(top: Radius.circular(32)),
+                      child: Image.asset(
+                        'assets/${demoCardData[index].image}',
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        fit: BoxFit.none,
+                      ),
+                    ),
+                    // Rest of the content
+                    const SizedBox(height: 8),
+                    Expanded(
+                      child: CardContent(
+                        name: demoCardData[index].name,
+                        date: demoCardData[index].date,
+                      ),
+                    ),
+                  ],
                 ),
-                // Rest of the content
-                const SizedBox(height: 8),
-                Expanded(
-                  child: CardContent(
-                    name: demoCardData[index].name,
-                    date: demoCardData[index].date,
-                  ),
-                ),
-              ],
-            ),
+              );
+            }
           );
         },
       ),
