@@ -39,6 +39,10 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
           return AnimatedBuilder(
             animation: pageController,
             builder: (context, child) {
+              double pageOffset = 0;
+              if(pageController.position.haveDimensions){
+                pageOffset = pageController.page!;
+              }
               return Container(
                 clipBehavior: Clip.none,
                 margin: const EdgeInsets.only(left: 8, right: 8, bottom: 24),
